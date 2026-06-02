@@ -1,7 +1,14 @@
 package com.spring_ecommerce_api.model;
 
-public class Producto {
+import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
 
+
+@Entity
+@Table(name = "productos")
+public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
     private String nombre;
     private String descripcion;
@@ -9,13 +16,17 @@ public class Producto {
     private double precio;
     private int cantidad;
 
-    public Producto(String nombre, int id, String descripcion, String imagen, double precio, int cantidad) {
-        this.nombre = nombre;
+    @ManyToOne
+    private Usuario usuario;
+
+    public Producto(int id, Usuario usuario, int cantidad, double precio, String imagen, String descripcion, String nombre) {
         this.id = id;
-        this.descripcion = descripcion;
-        this.imagen = imagen;
-        this.precio = precio;
+        this.usuario = usuario;
         this.cantidad = cantidad;
+        this.precio = precio;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.nombre = nombre;
     }
 
     public Producto() {
@@ -68,6 +79,15 @@ public class Producto {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 
     @Override
     public String toString() {
