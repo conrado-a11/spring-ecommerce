@@ -27,28 +27,31 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping("")
-    public String show(Model model){
+    public String show(Model model) {
         model.addAttribute("productos", productoService.findAll());
         return "administrador/productos/show";
     }
+
     @GetMapping("/create")
-    public String create(){
+    public String create() {
         return "administrador/productos/create";
     }
+
     @PostMapping("/save")
-    public String save(Producto producto){
+    public String save(Producto producto) {
         LOGGER.info("Este es el objeto Producto{}", producto);
         productoService.save(producto);
-        Usuario u = new Usuario(1,"","","","","","", "");
+        Usuario u = new Usuario(1, "", "", "", "", "", "", "");
         producto.setUsuario(u);
         productoService.save(producto);
-            return "redirect:/administrador/productos";
+        return "redirect:/administrador/productos";
     }
+
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model){
+    public String edit(@PathVariable Integer id, Model model) {
         Producto producto = new Producto();
-        Optional<Producto> optionalProducto=productoService.get(id);
-        producto=optionalProducto.get();
+        Optional<Producto> optionalProducto = productoService.get(id);
+        producto = optionalProducto.get();
 
 
         LOGGER.info("Producto Buscado: {}", producto);
@@ -56,11 +59,17 @@ public class ProductoController {
         return "administrador/productos/edit";
 
     }
+
     @PostMapping("/update")
-    public String update(Producto producto){
+    public String update(Producto producto) {
         productoService.update(producto);
         return "redirect:/administrador/productos";
-        }
+    }
+    @GetMapping("/delete/{id}")
+    public String delete (@PathVariable Integer id){
+        productoService.delete(id);
+        return "redirect:/administrador/productos";
+    }
 
 
 
