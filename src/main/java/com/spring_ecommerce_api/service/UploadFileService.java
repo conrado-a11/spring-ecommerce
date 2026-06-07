@@ -11,7 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 @Service
 public class UploadFileService {
-    @Autowired
+
+
     private String folder = "images//";
 
 
@@ -25,7 +26,7 @@ public class UploadFileService {
         return "default.jpg";
     }
 
-    public void delete(String nombre){
+    public void deleteImage(String nombre){
         String ruta = "images//";
         File file = new File(ruta + nombre);
         file.delete();

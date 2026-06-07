@@ -36,14 +36,10 @@
 
       <!-- Page Features -->
       <div class="row text-center">
-
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-              <div style="background-color:#e9ecef; height:250px; border-radius:5px; margin-bottom:30px;">
-              </div>
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div class="col-lg-3 col-md-6 mb-4" th:each="producto: ${productos}">
+            <img class="card-img-top"  th:src="@{/images/{img}(img=${producto.imagen})}" alt="">
             <div class="card-body">
-              <p class="card-text">Nombre del producto.</p>
+              <p class="card-text" th:text="${producto.nombre}"></p>
             </div>
             <div class="card-footer">
               <a href="productohome.html" class="btn btn-success">Ver producto</a>
@@ -51,46 +47,6 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-              <div style="background-color:#e9ecef; height:250px; border-radius:5px; margin-bottom:30px;">
-              </div>
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <p class="card-text">Nombre del producto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-success">Ver producto</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-              <div style="background-color:#e9ecef; height:250px; border-radius:5px; margin-bottom:30px;">
-              </div>
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <p class="card-text">Nombre del producto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-success">Ver producto</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-              <div style="background-color:#e9ecef; height:250px; border-radius:5px; margin-bottom:30px;">
-              </div>
-            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-            <div class="card-body">
-              <p class="card-text">Nombre del producto.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-success">Ver producto</a>
-            </div>
-          </div>
-        </div>
 
       </div>
       <!-- /.row -->
