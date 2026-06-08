@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
     @Autowired
-    public ProductoService productoService;
+    private ProductoService productoService;
     @GetMapping("")
     public String home(Model model){
 
