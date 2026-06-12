@@ -23,6 +23,6 @@ public class AdministradorController {
 
         List<Producto> productos = productoService.findAll();
         model.addAttribute("productos", productos);
-        return "administrador/home";
+        return "administrador/usuario/home";
     }
 }
