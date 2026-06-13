@@ -4,6 +4,8 @@ package com.spring_ecommerce_api.controller;
 import com.spring_ecommerce_api.model.DetalleOrden;
 import com.spring_ecommerce_api.model.Orden;
 import com.spring_ecommerce_api.model.Producto;
+import com.spring_ecommerce_api.model.Usuario;
+import com.spring_ecommerce_api.service.IUsuarioService;
 import com.spring_ecommerce_api.service.ProductoService;
 import org.apache.tomcat.util.digester.ArrayStack;
 import org.slf4j.Logger;
@@ -22,9 +24,10 @@ import java.util.Optional;
 public class HomeController {
 
     private final Logger log= LoggerFactory.getLogger(HomeController.class);
-
     @Autowired
     private ProductoService productoService;
+    @Autowired
+    private IUsuarioService UsuarioService;
     //para almacenar los detalles de la orden
     List<DetalleOrden> detalles  = new ArrayList<DetalleOrden>();
 
@@ -118,8 +121,15 @@ public class HomeController {
         return "administrador/usuario/carrito";
     }
     @GetMapping("/order")
-    public String order(){
+    public String order(Model model){
 
-        return "/administrador/usuario/resumenorden";
+        Usuario usuario = UsuarioService.findById(1).get();
+
+        model.addAttribute("cart", detalles);
+        model.addAttribute("orden", orden);
+        model.addAttribute("usuario", usuario);
+
+
+        return "administrador/usuario/resumenorden";
     }
 }
