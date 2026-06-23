@@ -103,8 +103,8 @@ public class ProductoController {
         Producto p = new Producto();
         p=productoService.get(id).get();
 
-        //Eliminar cuando no sea la imagen por defecto
-        if (!p.getImagen().equals("default.jpg")){
+        //Eliminar la imagen solo si existe y no es la imagen por defecto
+        if (p.getImagen() !=null && !p.getImagen().isEmpty() && p.getImagen().equals("default.jpg")){
             upload.deleteImage(p.getImagen());
 
         }
