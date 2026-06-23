@@ -18,7 +18,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("administrador/productos")
+@RequestMapping("/administrador/productos")
 public class ProductoController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
@@ -42,17 +42,17 @@ public class ProductoController {
     @PostMapping("/save")
     public String save(Producto producto, @RequestParam("img")MultipartFile file) throws IOException {
         LOGGER.info("Este es el objeto Producto{}", producto);
-        //productoService.save(producto);
+        productoService.save(producto);
         Usuario u = new Usuario(1, "", "", "", "", "", "", "");
-        producto.setUsuario(u);
+       // producto.setUsuario(u);
         //imagen
-        if (producto.getId()==null){ // cuando se crea el producto
-                String nombreImagen= upload.saveImage(file);
-                producto.setImagen(nombreImagen);
-        }else {
+       // if (producto.getId()==null){ // cuando se crea el producto
+               // String nombreImagen= upload.saveImage(file);
+               // producto.setImagen(nombreImagen);
+       // }else {
 
 
-        }
+       // }
 
 
         productoService.save(producto);
