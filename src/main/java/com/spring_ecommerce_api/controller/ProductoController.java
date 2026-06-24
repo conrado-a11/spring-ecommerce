@@ -42,10 +42,12 @@ public class ProductoController {
     @PostMapping("/save")
     public String save(Producto producto, @RequestParam("img")MultipartFile file) throws IOException {
         LOGGER.info("Este es el objeto Producto{}", producto);
-        productoService.save(producto);
+
         Usuario u = new Usuario(1, "", "", "", "", "", "", "");
-       // producto.setUsuario(u);
-        //imagen
+        producto.setUsuario(u);
+        //imagen(curso estándar)
+        String nombreImagen = upload.saveImage(file);
+        producto.setImagen(nombreImagen);
        // if (producto.getId()==null){ // cuando se crea el producto
                // String nombreImagen= upload.saveImage(file);
                // producto.setImagen(nombreImagen);
@@ -104,7 +106,9 @@ public class ProductoController {
         p=productoService.get(id).get();
 
         //Eliminar la imagen solo si existe y no es la imagen por defecto
-        if (p.getImagen() !=null && !p.getImagen().isEmpty() && p.getImagen().equals("default.jpg")){
+        if (p.getImagen() !=null &&
+                !p.getImagen().isEmpty() &&
+                !p.getImagen().equals("default.jpg")){
             upload.deleteImage(p.getImagen());
 
         }
