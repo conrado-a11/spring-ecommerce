@@ -52,7 +52,7 @@ public class HomeController {
     }
     @GetMapping("productohome/{id}")
     public String productoHome(@PathVariable Integer id, Model model) {
-        log.info("Id producto enviado como parametro {}", id);
+        log.info("Id producto enviado como parámetro {}", id);
         Producto producto= new Producto();
         Optional<Producto>productoOptional = productoService.get(id);
         producto = productoOptional.get();
