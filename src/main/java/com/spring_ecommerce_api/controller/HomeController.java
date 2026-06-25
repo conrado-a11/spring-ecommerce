@@ -52,7 +52,7 @@ public class HomeController {
     }
     @GetMapping("productohome/{id}")
     public String productoHome(@PathVariable Integer id, Model model) {
-        log.info("Id producto enviado como parámetro {}", id);
+        log.info("Id producto enviado como pará metro {}", id);
         Producto producto= new Producto();
         Optional<Producto>productoOptional = productoService.get(id);
         producto = productoOptional.get();
@@ -78,6 +78,8 @@ public class HomeController {
         detalleOrden.setTotal(producto.getPrecio() * cantidad);
         detalleOrden.setProducto(producto);
 
+
+
         //validar que el producto no se añada 2 veces
         Integer idProducto = producto.getId();
         boolean ingresado = detalles.stream().anyMatch(p -> p.getProducto().getId() == idProducto);
@@ -85,14 +87,12 @@ public class HomeController {
             detalles.add(detalleOrden);
 
         }
-
-
-
         sumaTotal = detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
         orden.setTotal(sumaTotal);
 
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
+
 
         return "administrador/usuario/carrito";
     }
