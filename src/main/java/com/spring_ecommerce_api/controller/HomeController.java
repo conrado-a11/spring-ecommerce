@@ -160,7 +160,7 @@ public class HomeController {
         }
         //limpiar lista orden
         orden= new Orden();
-        detalles.clear();;
+        detalles.clear();
 
         return "redirect:/";
     }
