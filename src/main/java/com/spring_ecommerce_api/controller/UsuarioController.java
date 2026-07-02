@@ -44,7 +44,7 @@ public class UsuarioController {
     }
     @PostMapping("/acceder")
     public String acceder(Usuario usuario, HttpSession session) {
-        logger.info("Accesos : {}", usuario);
+        // logger.info("Accesos : {}", usuario);
 
         Optional<Usuario> user=usuarioService.findByEmail(usuario.getEmail());
         //logger.info("Usuario de db: {}", user.get());
@@ -55,7 +55,7 @@ public class UsuarioController {
             if (user.get().getTipo().equals("ADMIN")) {
                 return "redirect:/administrador";
             }else {
-                return "redirect://usuario/home";
+                return "redirect:/administrador";
             }
         }else {
             logger.info("Usuario no existe");
@@ -63,6 +63,7 @@ public class UsuarioController {
 
         return "redirect:/";
     }
+
 
 
 }

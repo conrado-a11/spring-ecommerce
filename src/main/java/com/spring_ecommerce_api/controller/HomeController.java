@@ -9,6 +9,7 @@ import com.spring_ecommerce_api.service.IDetalleOrdenService;
 import com.spring_ecommerce_api.service.IOrdenService;
 import com.spring_ecommerce_api.service.IUsuarioService;
 import com.spring_ecommerce_api.service.ProductoService;
+import jakarta.servlet.http.HttpSession;
 import org.apache.tomcat.util.digester.ArrayStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class HomeController {
     @Autowired
     private ProductoService productoService;
     @Autowired
-    private IUsuarioService UsuarioService;
+    private IUsuarioService usuarioService;
     @Autowired
     private IOrdenService ordenService;
     @Autowired
@@ -45,9 +46,13 @@ public class HomeController {
 
 
     @GetMapping("")
-    public String home(Model model){
+    public String home(Model model, HttpSession session){
 
+        log.info("Session del usuario: {}", session.getAttribute("idusuario"));
         model.addAttribute("productos", productoService.findAll() );
+
+        //sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
         return "administrador/usuario/home";
     }
     @GetMapping("productohome/{id}")
@@ -121,17 +126,21 @@ public class HomeController {
 
     }
     @GetMapping("/getCart")
-    public String getCart(Model model){
+    public String getCart(Model model, HttpSession session){
 
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
 
+        //sesion
+        model.addAttribute("sesion", session.getAttribute("idusuario"));
+
         return "administrador/usuario/carrito";
     }
     @GetMapping("/order")
-    public String order(Model model){
+    public String order(Model model,HttpSession session){
 
-        Usuario usuario = UsuarioService.findById(1).get();
+
+        Usuario usuario =usuarioService.findById( Integer.parseInt(session.getAttribute("idusuario").toString())  ).get();
 
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
@@ -142,12 +151,12 @@ public class HomeController {
     }
     //guardar la orden
     @GetMapping("/saveOrder")
-    public String saveOrder(){
+    public String saveOrder(HttpSession session){
         Date fechaCreacion = new Date();
         orden.setFechaCreacion(fechaCreacion);
         orden.setNumero(ordenService.generarNumeroOrden());
         //usuario
-        Usuario usuario = UsuarioService.findById(1).get();
+        Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
         orden.setUsuario(usuario);
         ordenService.save(orden);
