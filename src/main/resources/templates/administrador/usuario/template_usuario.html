@@ -75,7 +75,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="collapse navbar-collapse" id="navbarResponsiveUser">
 
                 <ul class="navbar-nav ml-auto">
 
@@ -87,12 +87,9 @@
                            data-toggle="dropdown">
                             USER
                         </a>
-
                         <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               th:href="@{/getCart}">
-                                Carrito
-                            </a>
+                            <a class="dropdown-item" th:href="@{/usuario/compras}">Compras</a>
+                            <a class="dropdown-item" th:href="@{/getCart}">Carrito</a>
                         </div>
 
                     </li>
