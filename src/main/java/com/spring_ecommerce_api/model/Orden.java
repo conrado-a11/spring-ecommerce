@@ -3,6 +3,8 @@ package com.spring_ecommerce_api.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "ordenes")
 public class Orden {
@@ -13,11 +15,14 @@ public class Orden {
     private String numero;
     private Date fechaCreacion;
     private Date fechaRecibida;
+
     private double total;
+
     @ManyToOne
     private Usuario usuario;
-    @OneToOne(mappedBy = "orden")
-    private DetalleOrden detalle;
+
+    @OneToMany(mappedBy = "orden")
+    private List<DetalleOrden>  detalle;
 
 
     public Orden(int id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
@@ -80,14 +85,13 @@ public class Orden {
         this.usuario = usuario;
     }
 
-    public DetalleOrden getDetalle() {
+    public List<DetalleOrden> getDetalle() {
         return detalle;
     }
 
-    public void setDetalle(DetalleOrden detalle) {
+    public void setDetalle(List<DetalleOrden> detalle) {
         this.detalle = detalle;
     }
-
 
     @Override
     public String toString() {
