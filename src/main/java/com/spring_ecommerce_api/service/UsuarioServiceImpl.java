@@ -6,6 +6,8 @@ import com.spring_ecommerce_api.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -28,4 +30,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+
+    @Override
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
+
+
+
+
+
 }
