@@ -32,7 +32,6 @@ public class UsuarioController {
     private IOrdenService ordenService;
 
 
-
     //usuario/registro
     @GetMapping("/registro")
     public String create(){

@@ -64,7 +64,7 @@ public class HomeController {
 
         model.addAttribute("producto", producto);
 
-        return "/administrador/usuario/productoHome";
+        return "administrador/usuario/productoHome";
     }
     @PostMapping("/cart")
     public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {
@@ -180,6 +180,13 @@ public class HomeController {
         model.addAttribute("productos", productos);
 
         return "administrador/usuario/home";
+    }
+    @GetMapping("/cerrar")
+    public String cerrarSesion(HttpSession session){
+
+        session.removeAttribute("idusuario");
+
+        return "redirect:/";
     }
 
 
