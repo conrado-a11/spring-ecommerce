@@ -1,14 +1,18 @@
 package com.spring_ecommerce_api.controller;
 
 
+import com.spring_ecommerce_api.model.Orden;
 import com.spring_ecommerce_api.model.Producto;
 import com.spring_ecommerce_api.service.IOrdenService;
 import com.spring_ecommerce_api.service.IUsuarioService;
 import com.spring_ecommerce_api.service.ProductoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -25,6 +29,8 @@ public class AdministradorController {
 
     @Autowired
     private IOrdenService ordenService;
+
+    private Logger logg = LoggerFactory.getLogger(AdministradorController.class);
 
     @GetMapping("")
     public String home(Model model){
@@ -44,6 +50,14 @@ public class AdministradorController {
     public String ordenes(Model model){
         model.addAttribute("ordenes", ordenService.findAll());
         return "administrador/ordenes";
+    }
+    @GetMapping("/detalle/{id}")
+    public String detalleOrden(Model model, @PathVariable Integer id){
+        logg.info("Id de la oden {}", id);
+        Orden orden = ordenService.findyById(id).get();
+
+        model.addAttribute("detalles", orden.getDetalle());
+        return "administrador/detalleorden";
     }
 
 

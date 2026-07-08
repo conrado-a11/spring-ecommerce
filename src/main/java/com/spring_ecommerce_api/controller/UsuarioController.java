@@ -80,6 +80,7 @@ public class UsuarioController {
 
         Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
         List<Orden> ordenes = ordenService.findByUsuario(usuario);
+        logger.info("ordenes {}", ordenes);
 
         model.addAttribute("ordenes", ordenes);
 
@@ -96,7 +97,7 @@ public class UsuarioController {
         model.addAttribute("sesion", session.getAttribute("idusuario"));
 
 
-        return "administrador/usuario/detalleCompra";
+        return "administrador/usuario/detallecompra";
 
     }
 
