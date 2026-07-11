@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,8 @@ import java.util.Optional;
 public class UsuarioController {
 
     private final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+
+    BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -43,6 +46,7 @@ public class UsuarioController {
     public String save(Usuario usuario){
         logger.info("Usuario registro: {}", usuario );
         usuario.setTipo("USER");
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioService.save(usuario);
         return "redirect:/";
     }
@@ -52,11 +56,11 @@ public class UsuarioController {
 
         return "administrador/usuario/login";
     }
-    @PostMapping("/acceder")
+    @GetMapping("/acceder")
     public String acceder(Usuario usuario, HttpSession session) {
         // logger.info("Accesos : {}", usuario);
 
-        Optional<Usuario> user=usuarioService.findByEmail(usuario.getEmail());
+        Optional<Usuario> user=usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString()));
         //logger.info("Usuario de db: {}", user.get());
 
         if (user.isPresent()) {
